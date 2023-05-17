@@ -1,12 +1,13 @@
 from foo import *
 
 
-print("привет! \n пиши")
+print("привет! \n я готов!")
 while True:
     tex=input()
     if tex=="exit":
         break
-    print(bot(tex))
+    else:
+        print(bot(tex))
     
     
     
