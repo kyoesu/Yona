@@ -54,10 +54,10 @@ def encode_message(mess, tokenizer):
 
     return(encoded_text)
 
-def decoded_message(mess):
-    tokenizer=tf.keras.preprocessing.text.Tokenizer()
-    tokenizer=tokenizer.load("tokenizer.h5")
-    decoded_text=tokenizer.sequences_to_texts(mess)
+def decoded_message(mess, tokenizer):
+    '''tokenizer=tf.keras.preprocessing.text.Tokenizer()
+    tokenizer=tokenizer.load("tokenizer.h5")'''
+    decoded_text=tokenizer.sequences_to_texts([[mess]])
 
     return(decoded_text)
 
@@ -69,13 +69,14 @@ def choose_action(state, model):
 
 def execute_action(action):
     done=False
-    print ("Ответ: "+action)
-    q=input ("ggg: ")
+    print (action)
+    q=input ("оценка: ")
     if q=="end":
         done=True
+        reward=-1
     else:
         reward=int(q)
-
+        print(reward-5)
 
     return reward, done
 
@@ -127,10 +128,12 @@ def training_model(model, num_epochs, hidden_units, tokenizer):
             encoded_message = encode_message(message, tokenizer) 
             
             # Получаем действие от модели 
-            action = choose_action(encoded_message, model)
+            action = choose_action(encoded_message, model)#numpy.int64
 
             # Выполняем действие и получаем награду 
-            reward, done = execute_action(action) 
+            #action2=[action,590243]#+мяу
+            action1=decoded_message(action, tokenizer)#преобразование в текст
+            reward, done = execute_action(action1) 
             total_reward += reward 
             
             # Обновляем состояние модели 
@@ -153,7 +156,7 @@ def training_model(model, num_epochs, hidden_units, tokenizer):
 
 # Задаем гиперпараметры 
 learning_rate = 0.001 
-num_epochs = 100 
+num_epochs = 3
 hidden_units = 128 
 vocab_size=1532630
 
