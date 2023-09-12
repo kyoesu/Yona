@@ -95,22 +95,21 @@ def save_np(arr,name,ch=False):
 
 
 def save_txt(text):
-    with open('req/out.txt','w', encoding="utf-8") as f:
+    with open('req/out1.txt','w', encoding="utf-8") as f:
         f.write(text)
         f.close()
 
 
 
 def reverce_np(arr):
-    new_arr=arr
-    for i in range(50):#len(my_array)):
-        #print (my_array[(len(my_array)-i)-1])
-        new_arr.append(arr[(len(arr)-i)-1])
+    new_arr = arr[::-1]
     return(new_arr)
 
 
 i=0
+j=0
 result=""
+res={}
 while i <=157750:
     file="req/lin/messages"+str(i)+".html"
     f = open (file , 'r')
@@ -118,15 +117,24 @@ while i <=157750:
     
     #print(i)
     f.close()
-    
+    '''
+    if i//25000:
+
+        res[j]=result
+        result=""
+        j+=1
+        '''
     i+=50
+#res[j]=result
+#result=', '.join(str(value) for value in res.values())
+
 import sys
 #print(result)
 print(sys.getsizeof(result))
 
 #write(result)
 a1,a2,a3=forma_arr(result,"Ланая Кит")
-#save_txt(a2)
+save_txt(a2)
 #print(a3)
 #save_np(a3)
 print("первый массив готов")
