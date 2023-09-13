@@ -27,7 +27,7 @@ def prop(tex):#удаление html кода
     tex2=tex2.replace("&lt;","<")
     return tex2
 
-def forma(tex):
+'''def forma(tex):
     tex1=""
     ch=False
     for i  in range(len(tex)):
@@ -39,12 +39,30 @@ def forma(tex):
             ch=False
         elif tex[i-10:i]=="123&raquo;":
             ch=True
+        
+        elif tex[i:i+2]=="&#":
+            ch=False
+        elif tex[i]==";":
+            ch=True
+
         if ch:
             tex1+=tex[i]
            
-    return (tex1)
+    return (tex1)'''
+
+def replace_sim(text):#пока что только удаляет
+    new_text=""
+    ch=True
+    for i  in range(len(text)):
+        if text[i:i+2]=="&#":
+            ch=False
+        elif text[i]==";":
+            ch=True
 
 
+        if ch:
+            new_text+=text[i]
+    return new_text
 def forma_arr(tex,name):
     tex1=[]
     tex2=""
@@ -94,8 +112,9 @@ def save_np(arr,name,ch=False):
 
 
 
-def save_txt(text):
-    with open('req/out1.txt','w', encoding="utf-8") as f:
+def save_txt(text,name):
+    name="req/"+name+".txt"
+    with open(name,'w', encoding="utf-8") as f:
         f.write(text)
         f.close()
 
@@ -133,8 +152,11 @@ import sys
 print(sys.getsizeof(result))
 
 #write(result)
+
+result=replace_sim(result)
+print(sys.getsizeof(result))
 a1,a2,a3=forma_arr(result,"Ланая Кит")
-save_txt(a2)
+#save_txt(a2,out)
 #print(a3)
 #save_np(a3)
 print("первый массив готов")
