@@ -56,7 +56,7 @@ def replace_sim(text):#пока что только удаляет
     for i  in range(len(text)):
         if text[i:i+2]=="&#":
             ch=False
-        elif text[i]==";":
+        elif text[i-1]==";":
             ch=True
 
 
