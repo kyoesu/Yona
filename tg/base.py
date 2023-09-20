@@ -4,7 +4,7 @@ import sqlite3
 
 
 
-def sql(name):
+def sql_k(name):
     # Создаем подключение к базе данных (файл my_database.db будет создан)
     connection = sqlite3.connect(name)
     cursor = connection.cursor()
@@ -20,4 +20,9 @@ age INTEGER
 
 
 
+    # Сохраняем изменения и закрываем соединение
+    connection.commit()
     connection.close()
+
+
+sql_k("tg/Domino.db")
