@@ -35,7 +35,7 @@ async def command_start_handler(message: Message) -> None:
     # вы можете использовать псевдоним `message.answer(...)` и целевой чат будет передан в метод
     # :ref:`aiogram.methods.send_message.SendMessage` автоматически или вызвать метод API непосредственно через
     # экземпляр Bot: `bot.send_message(chat_id=message.chat.id, ...)`
-    sql_new_user(message.from_user.id,hbold(message.from_user.full_name))
+    sql_new_user(message.from_user.id ,hbold(message.from_user.full_name))
     await message.answer(f"Привет, {hbold(message.from_user.full_name)}!")
 
 
