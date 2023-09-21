@@ -2,13 +2,13 @@ import sqlite3
 
 
 
-def sql_begin():
+'''def sql_begin():
     connection = sqlite3.connect("tg/Domino.db")# Создаем подключение к базе данных (файл my_database.db будет создан)
     cursor = connection.cursor()
     return cursor
 def sql_end(connection):
     connection.commit()
-    connection.close()
+    connection.close()'''
 
 def sql_adm():
     
@@ -28,27 +28,44 @@ ORDER BY [id] DESC LIMIT 500
     connection.close()
     return res
 
-def sql_new_user(id,name):
+def sql_new_user(link,name):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"INSERT INTO users (name, link) VALUES ('{name}', '{id}')")
+    cursor.execute(f"INSERT INTO users (name, link) VALUES ('{name}', '{link}')")
 
     connection.commit()
     connection.close()
 
-def sql_new_age(id,age):
+def sql_new_age(link,age):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"UPDATE users SET age = {age} WHERE link = '{id}';")
+    cursor.execute(f"UPDATE users SET age = {age} WHERE link = '{link}';")
 
     connection.commit()
     connection.close()
 
-def sql_new_desk(id, desk):
+def sql_new_desk(link, desk):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"UPDATE users SET else = {desk} WHERE link = '{id}';")
+    cursor.execute(f"UPDATE users SET else = {desk} WHERE link = '{link}';")
 
     connection.commit()
     connection.close()
-#print(sql_k())
+
+
+#при получении сообщения
+def sql_get_mess(link,tex,name):
+    import datetime
+    connection = sqlite3.connect("tg/Domino.db")
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT id FROM [Users] WHERE [link] = {link}")
+    #print(cursor.fetchall())
+    
+    if not cursor.fetchall():
+        cursor.execute(f"INSERT INTO mess (id-user, text, time) VALUES ('{link}', '{tex}','{datetime.datetime.now()}')")
+    else:
+        sql_new_user(link,name)
+        sql_get_mess(link,tex)
+
+    connection.commit()
+    connection.close()

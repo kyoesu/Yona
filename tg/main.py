@@ -1,6 +1,6 @@
-import aiogram
+#import aiogram
 #print(aiogram.__version__)
-
+from base import *
 import logging
 
 # Установка уровня логирования
@@ -35,6 +35,7 @@ async def command_start_handler(message: Message) -> None:
     # вы можете использовать псевдоним `message.answer(...)` и целевой чат будет передан в метод
     # :ref:`aiogram.methods.send_message.SendMessage` автоматически или вызвать метод API непосредственно через
     # экземпляр Bot: `bot.send_message(chat_id=message.chat.id, ...)`
+    sql_new_user(message.from_user.id,hbold(message.from_user.full_name))
     await message.answer(f"Привет, {hbold(message.from_user.full_name)}!")
 
 
@@ -48,6 +49,9 @@ async def echo_handler(message: types.Message) -> None:
     try:
         # Отправка копии полученного сообщения
         await message.send_copy(chat_id=message.chat.id)
+        sql_get_mess(message.from_user.id,message.text,hbold(message.from_user.full_name))
+        #await message.reply(f"Ваш ID: {message.from_user.id}")
+        #await message.reply(message.from_user.first_name + " "+message.from_user.last_name+" "+message.from_user.username)
     except TypeError:
         # Но не все типы поддерживаются для копирования, поэтому нужно обработать это
         await message.answer("Хорошая попытка!")
