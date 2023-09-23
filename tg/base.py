@@ -69,3 +69,12 @@ def sql_get_mess(link,tex,name):
 
     connection.commit()
     connection.close()
+
+def sql_show_his(link):
+    connection = sqlite3.connect("tg/Domino.db")
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT text FROM [mess] WHERE [link] = {link}")
+
+    connection.commit()
+    connection.close()
+
