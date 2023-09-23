@@ -74,7 +74,8 @@ def sql_show_his(link):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
     cursor.execute(f"SELECT text FROM [mess] WHERE [link] = {link}")
-
+    res=cursor.fetchall()
     connection.commit()
     connection.close()
+    return res
 
