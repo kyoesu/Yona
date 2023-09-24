@@ -20,7 +20,7 @@ class RecurrentNeuralNetwork:
         # Пример обработки данных без учителя 
         processed_data = process_unsupervised_data(data) 
         self.weights = calculate_weights(processed_data) 
-    
+    '''
     def train_rl(self, question, answer): 
         # Обучение с подкреплением 
         # Здесь выполняется алгоритм обучения с подкреплением, например, с помощью Q-обучения или других методов RL 
@@ -32,11 +32,12 @@ class RecurrentNeuralNetwork:
         
         # Обновление весов на основе полученной награды 
         self.weights += reward * self.hidden_state
-
+'''
 
     def generate_text(self): 
         # Генерация текста на основе текущих весов нейросети 
         # Здесь выполняется алгоритм генерации текста с использованием рекуррентных связей 
+        max_length=50
         generated_text = "" 
         for _ in range(max_length): 
             # Генерация следующего символа на основе текущего состояния и весов 
@@ -58,14 +59,14 @@ def main():
     # Обучение без учителя 
     unsupervised_data = load_unsupervised_data() 
     rnn.train_unsupervised(unsupervised_data) 
-    
+    '''
     # Обучение с подкреплением 
     question = input("Введите вопрос: ")
     answer = input("Введите ответ: ") 
     rnn.train_rl(question, answer) 
-    
+    '''
     # Генерация текста 
     generated_text = rnn.generate_text() 
     print("Сгенерированный текст:", generated_text)
-if __name__ == 'main':
+if __name__ == '__main__':
     main()
