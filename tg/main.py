@@ -1,5 +1,3 @@
-#import aiogram
-#print(aiogram.__version__)
 from base import *
 import logging
 
@@ -13,7 +11,7 @@ import sys
 
 from aiogram import Bot, Dispatcher, Router, types
 from aiogram.enums import ParseMode
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from aiogram.utils.markdown import hbold
 
@@ -38,6 +36,11 @@ async def command_start_handler(message: Message) -> None:
     # экземпляр Bot: `bot.send_message(chat_id=message.chat.id, ...)`
     sql_new_user(message.from_user.id ,hbold(message.from_user.full_name))
     await message.answer(f"Привет, {hbold(message.from_user.full_name)}!")
+
+@dp.message_handler(Command('название_команды'))
+async def command_handler(message: types.Message):
+    # Ваш код для обработки команды
+    await message.answer('Вы вызвали команду!')
 
 
 @dp.message()
@@ -65,6 +68,8 @@ async def main() -> None:
     # Инициализация экземпляра Bot с режимом разбора по умолчанию,
     # который будет передаваться во всех вызовах API
     bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
+    # Добавьте обработчик команды в Dispatcher
+    dp.register_message_handler(command_handler)
     # И запуск обработки событий
     await dp.start_polling(bot)
 
