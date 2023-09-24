@@ -31,7 +31,9 @@ ORDER BY [id] DESC LIMIT 500
 def sql_new_user(link,name):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"INSERT INTO [Users] ([name], [link]) VALUES ('{name}', '{link}')")
+    cursor.execute(f"SELECT * FROM [Users] WHERE [link] = {link}")
+    if not cursor.fetchall():
+        cursor.execute(f"INSERT INTO [Users] ([name], [link]) VALUES ('{name}', '{link}')")
 
     connection.commit()
     connection.close()
