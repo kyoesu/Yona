@@ -18,7 +18,8 @@ from aiogram.types import Message
 from aiogram.utils.markdown import hbold
 
 
-TOKEN = '6594686729:AAHFK7jZHto2o19n89VjWf19rxpal6hNjrc'
+
+from secr import TOKEN
 
 # Все обработчики должны быть присоединены к Router (или Dispatcher)
 dp = Dispatcher()

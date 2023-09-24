@@ -6,6 +6,7 @@ lin
 *.txt
 *.csv
 *.npy
-
+*.db
 
 *sphinx*
+tg/secr.py
