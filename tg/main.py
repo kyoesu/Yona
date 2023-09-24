@@ -46,6 +46,9 @@ async def echo_handler(message: types.Message) -> None:
 
     По умолчанию, обработчик сообщений будет обрабатывать все типы сообщений (текст, фото, стикер и т. д.)
     """
+    
+    
+    
     try:
         # Отправка копии полученного сообщения
         await message.send_copy(chat_id=message.chat.id)

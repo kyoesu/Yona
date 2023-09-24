@@ -47,7 +47,7 @@ def sql_new_age(link,age):
 def sql_new_desk(link, desk):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"UPDATE users SET else = {desk} WHERE link = '{link}';")
+    cursor.execute(f"UPDATE [Users] SET else = {desk} WHERE link = '{link}';")
 
     connection.commit()
     connection.close()
@@ -58,14 +58,14 @@ def sql_get_mess(link,tex,name):
     import datetime
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"SELECT id FROM [Users] WHERE [link] = {link}")
+    cursor.execute(f"SELECT [id] FROM [Users] WHERE [link] = {link}")
     #print(cursor.fetchall())
     
-    if not cursor.fetchall():
-        cursor.execute(f"INSERT INTO mess (id-user, text, time) VALUES ('{link}', '{tex}','{datetime.datetime.now()}')")
+    if cursor.fetchall():
+        cursor.execute(f"INSERT INTO mess ([id-user],[text],[time]) VALUES ('{link}', '{tex}','{datetime.datetime.now()}')")
     else:
         sql_new_user(link,name)
-        sql_get_mess(link,tex)
+        sql_get_mess(link,tex,name)
 
     connection.commit()
     connection.close()
