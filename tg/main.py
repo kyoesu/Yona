@@ -8,14 +8,11 @@ import asyncio
 import logging
 import sys
 
-
 from aiogram import Bot, Dispatcher, Router, types
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from aiogram.utils.markdown import hbold
-
-
 
 from secr import TOKEN
 
@@ -37,7 +34,7 @@ async def command_start_handler(message: Message) -> None:
     sql_new_user(message.from_user.id ,hbold(message.from_user.full_name))
     await message.answer(f"Привет, {hbold(message.from_user.full_name)}!")
 
-@dp.message_handler(Command('название_команды'))
+@dp.message(Command('kkkk'))
 async def command_handler(message: types.Message):
     # Ваш код для обработки команды
     await message.answer('Вы вызвали команду!')
@@ -50,15 +47,10 @@ async def echo_handler(message: types.Message) -> None:
 
     По умолчанию, обработчик сообщений будет обрабатывать все типы сообщений (текст, фото, стикер и т. д.)
     """
-    
-    
-    
     try:
         # Отправка копии полученного сообщения
         await message.send_copy(chat_id=message.chat.id)
         sql_get_mess(message.from_user.id,message.text,hbold(message.from_user.full_name))
-        #await message.reply(f"Ваш ID: {message.from_user.id}")
-        #await message.reply(message.from_user.first_name + " "+message.from_user.last_name+" "+message.from_user.username)
     except TypeError:
         # Но не все типы поддерживаются для копирования, поэтому нужно обработать это
         await message.answer("Хорошая попытка!")
@@ -69,7 +61,7 @@ async def main() -> None:
     # который будет передаваться во всех вызовах API
     bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
     # Добавьте обработчик команды в Dispatcher
-    dp.register_message_handler(command_handler)
+    #dp.register_message_handler(command_handler,Command("kkkk"))
     # И запуск обработки событий
     await dp.start_polling(bot)
 

@@ -31,7 +31,7 @@ ORDER BY [id] DESC LIMIT 500
 def sql_new_user(link,name):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"INSERT INTO users (name, link) VALUES ('{name}', '{link}')")
+    cursor.execute(f"INSERT INTO [Users] ([name], [link]) VALUES ('{name}', '{link}')")
 
     connection.commit()
     connection.close()
@@ -39,7 +39,7 @@ def sql_new_user(link,name):
 def sql_new_age(link,age):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"UPDATE users SET age = {age} WHERE link = '{link}';")
+    cursor.execute(f"UPDATE [Users] SET [age] = {age} WHERE [link] = '{link}';")
 
     connection.commit()
     connection.close()
@@ -47,7 +47,7 @@ def sql_new_age(link,age):
 def sql_new_desk(link, desk):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"UPDATE [Users] SET else = {desk} WHERE link = '{link}';")
+    cursor.execute(f"UPDATE [Users] SET [else] = {desk} WHERE [link] = '{link}';")
 
     connection.commit()
     connection.close()
@@ -62,7 +62,7 @@ def sql_get_mess(link,tex,name):
     #print(cursor.fetchall())
     
     if cursor.fetchall():
-        cursor.execute(f"INSERT INTO mess ([id-user],[text],[time]) VALUES ('{link}', '{tex}','{datetime.datetime.now()}')")
+        cursor.execute(f"INSERT INTO [mess] ([id-user],[text],[time]) VALUES ('{link}', '{tex}','{datetime.datetime.now()}')")
     else:
         sql_new_user(link,name)
         sql_get_mess(link,tex,name)
@@ -73,7 +73,7 @@ def sql_get_mess(link,tex,name):
 def sql_show_his(link):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"SELECT text FROM [mess] WHERE [link] = {link}")
+    cursor.execute(f"SELECT [text] FROM [mess] WHERE [link] = {link}")
     res=cursor.fetchall()
     connection.commit()
     connection.close()
