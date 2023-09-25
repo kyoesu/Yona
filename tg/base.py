@@ -56,7 +56,7 @@ def sql_new_desk(link, desk):
 
 
 #при получении сообщения
-def sql_get_mess(link,tex,name):
+def sql_send_mess(link,tex,name):
     import datetime
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
@@ -67,7 +67,7 @@ def sql_get_mess(link,tex,name):
         cursor.execute(f"INSERT INTO [mess] ([id-user],[text],[time]) VALUES ('{link}', '{tex}','{datetime.datetime.now()}')")
     else:
         sql_new_user(link,name)
-        sql_get_mess(link,tex,name)
+        sql_send_mess(link,tex,name)
 
     connection.commit()
     connection.close()
@@ -75,7 +75,7 @@ def sql_get_mess(link,tex,name):
 def sql_show_his(link):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"SELECT [text] FROM [mess] WHERE [link] = {link}")
+    cursor.execute(f"SELECT [text] FROM [mess] WHERE [id-user] = {link}")
     res=cursor.fetchall()
     connection.commit()
     connection.close()
