@@ -9,4 +9,5 @@ lin
 *.db
 
 *sphinx*
-tg/secr.py
+*secr.py
+*test*
