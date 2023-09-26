@@ -75,7 +75,7 @@ def sql_send_mess(link,tex,name):
 def sql_show_his(link):
     connection = sqlite3.connect("tg/Domino.db")
     cursor = connection.cursor()
-    cursor.execute(f"SELECT [text] FROM [mess] WHERE [id-user] = {link}")
+    cursor.execute(f"SELECT [text],[time] FROM [mess] WHERE [id-user] = {link}")
     res=cursor.fetchall()
     connection.commit()
     connection.close()

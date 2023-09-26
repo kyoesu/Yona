@@ -1,6 +1,9 @@
 from base import *
 import logging
 
+#import aiogram
+#print(aiogram.__version__)
+
 # Установка уровня логирования
 logging.basicConfig(level=logging.INFO)
 
@@ -42,7 +45,7 @@ async def command_handler(message: types.Message):
 @dp.message(Command('show'))
 async def command_handler(message: types.Message):
     # Ваш код для обработки команды
-    res=(" ".join(str(el) for el in sql_show_his(message.from_user.id)))
+    res=("\n\r".join(str(el) for el in sql_show_his(message.from_user.id)))
 
     await message.answer(res)
 
