@@ -42,6 +42,12 @@ async def command_handler(message: types.Message):
     # Ваш код для обработки команды
     await message.answer('Вы вызвали команду!')
 
+@dp.message(Command('hellmin'))
+async def command_handler(message: types.Message):
+    
+
+    await message.answer('изменить режим yf ')
+
 @dp.message(Command('show'))
 async def command_handler(message: types.Message):
     # Ваш код для обработки команды
