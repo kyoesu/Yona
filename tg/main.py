@@ -11,7 +11,7 @@ import asyncio
 import logging
 import sys
 
-from aiogram import Bot, Dispatcher, Router, types
+from aiogram import Bot, Dispatcher, Router, types,F
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
@@ -44,9 +44,26 @@ async def command_handler(message: types.Message):
 
 @dp.message(Command('hellmin'))
 async def command_handler(message: types.Message):
-    
+    kb = [
+        [types.KeyboardButton(text="С пюрешкой")],
+        [types.KeyboardButton(text="Без пюрешки")]
+    ]
+    keyboard = types.ReplyKeyboardMarkup(keyboard=kb,resize_keyboard=True)
+    await message.answer("Как подавать котлеты?", reply_markup=keyboard)
+    #await message.answer('изменить режим')
 
-    await message.answer('изменить режим yf ')
+@dp.message(F.text.lower() == "1429")
+async def hellmin2(message: types.Message):
+    await message.reply("\"hellmin\" activated", reply_markup=types.ReplyKeyboardRemove())
+
+@dp.message(F.text.lower() == "с пюрешкой")
+async def with_puree(message: types.Message):
+    await message.reply("Отличный выбор!", reply_markup=types.ReplyKeyboardRemove())
+
+@dp.message(F.text.lower() == "без пюрешки")
+async def without_puree(message: types.Message):
+    await message.reply("Так невкусно!", reply_markup=types.ReplyKeyboardRemove())
+
 
 @dp.message(Command('show'))
 async def command_handler(message: types.Message):
